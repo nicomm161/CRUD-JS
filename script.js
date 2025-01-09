@@ -1,4 +1,4 @@
-//JSON
+// JSON
 const pokemon = [
     {
         id: 1,
@@ -6,7 +6,7 @@ const pokemon = [
         tipo: "Agua",
         entrenador: "img/rojo.png",
         pokemon: "img/squirtle.png",
-        movimiento: "Aqua cola",
+        movimientos: ["Aqua cola"],
         nivel: 15,
         region: "Kanto"
     },
@@ -16,7 +16,7 @@ const pokemon = [
         tipo: "Fuego",
         entrenador: "img/jimmy.png",
         pokemon: "img/cyndaquil.png",
-        movimiento: "Lanzallamas",
+        movimientos: ["Lanzallamas"],
         nivel: 15,
         region: "Johto"
     },
@@ -26,7 +26,7 @@ const pokemon = [
         tipo: "Planta",
         entrenador: "img/sabino.png",
         pokemon: "img/treecko.png",
-        movimiento: "Hierba lazo",
+        movimientos: ["Hierba lazo"],
         nivel: 15,
         region: "Hoenn"
     },
@@ -36,7 +36,7 @@ const pokemon = [
         tipo: "Planta",
         entrenador: "img/maya.png",
         pokemon: "img/turtwig.png",
-        movimiento: "Hoja afilada",
+        movimientos: ["Hoja afilada"],
         nivel: 15,
         region: "Sinnoh"
     },
@@ -46,7 +46,7 @@ const pokemon = [
         tipo: "Agua",
         entrenador: "img/ash.png",
         pokemon: "img/oshawott.png",
-        movimiento: "Concha filo",
+        movimientos: ["Concha filo"],
         nivel: 15,
         region: "Teselia"
     },
@@ -56,7 +56,7 @@ const pokemon = [
         tipo: "Agua",
         entrenador: "img/ash.png",
         pokemon: "img/froakie.png",
-        movimiento: "Surf",
+        movimientos: ["Surf"],
         nivel: 15,
         region: "Kalos"
     }
@@ -70,28 +70,22 @@ document.addEventListener("DOMContentLoaded", () => {
     pokemonVacio();
 });
 
-
 function TablaPokemon() {
+    container.innerHTML = ""; // Limpiar el contenido del contenedor
 
     const h1 = document.createElement("h1");
     h1.innerHTML = "Pokémon";
 
-    // Variables a crear dentro de la tabla
     const tabla = document.createElement("table");
     const thead = document.createElement("thead");
     const trhead = document.createElement("tr");
     const tbody = document.createElement("tbody");
-
-
-    tabla.innerHTML = "";
-
 
     for (const key in pokemon[0]) {
         const th = document.createElement("th");
         th.innerHTML = key;
         trhead.appendChild(th);
     }
-
 
     const thEliminar = document.createElement("th");
     thEliminar.innerHTML = "Eliminar";
@@ -108,7 +102,6 @@ function TablaPokemon() {
     thead.appendChild(trhead);
     tabla.appendChild(thead);
 
-
     pokemon.forEach((poke, index) => {
         const tr = document.createElement("tr");
 
@@ -124,7 +117,6 @@ function TablaPokemon() {
             tr.appendChild(td);
         }
 
-        // Botón Eliminar
         const tdEliminar = document.createElement("td");
         const botonEliminar = document.createElement("button");
         botonEliminar.innerHTML = "Eliminar";
@@ -135,7 +127,6 @@ function TablaPokemon() {
         tdEliminar.appendChild(botonEliminar);
         tr.appendChild(tdEliminar);
 
-        // Botón Actualizar
         const tdActualizar = document.createElement("td");
         const botonActualizar = document.createElement("button");
         botonActualizar.innerHTML = "Actualizar";
@@ -147,7 +138,6 @@ function TablaPokemon() {
         tdActualizar.appendChild(botonActualizar);
         tr.appendChild(tdActualizar);
 
-        // Botón Agregar
         const tdAgregar = document.createElement("td");
         const botonAgregar = document.createElement("button");
         botonAgregar.innerHTML = "Agregar";
@@ -176,31 +166,26 @@ function formAgregarPokemon(indice) {
 
     const form = document.createElement("form");
 
-    // Nombre
     const labelNombre = document.createElement("label");
     labelNombre.innerHTML = "Nombre";
     const inputNombre = document.createElement("input");
     inputNombre.type = "text";
 
-    // Tipo
     const labelTipo = document.createElement("label");
     labelTipo.innerHTML = "Tipo";
     const inputTipo = document.createElement("input");
     inputTipo.type = "text";
 
-    // Entrenador
     const labelEntrenador = document.createElement("label");
     labelEntrenador.innerHTML = "Entrenador";
     const inputEntrenador = document.createElement("input");
     inputEntrenador.type = "file";
 
-    // Pokémon Imagen
     const labelPokemon = document.createElement("label");
     labelPokemon.innerHTML = "Imagen Pokémon";
     const inputPokemon = document.createElement("input");
     inputPokemon.type = "file";
 
-    // Movimiento
     const movimientosPokemon = [
         "Rayo",
         "Terremoto",
@@ -222,7 +207,12 @@ function formAgregarPokemon(indice) {
         "Escaldar",
         "Avalancha",
         "Tóxico",
-        "Corte"
+        "Corte",
+        "Aqua cola",
+        "Hierba lazo",
+        "Hoja afilada",
+        "Concha filo",
+        "Surf"
     ];
     
     const labelMovimiento = document.createElement("label");
@@ -246,13 +236,11 @@ function formAgregarPokemon(indice) {
         contenedorMovimientos.appendChild(checkboxContainer);
     })
 
-    // Nivel
     const labelNivel = document.createElement("label");
     labelNivel.innerHTML = "Nivel";
     const inputNivel = document.createElement("input");
     inputNivel.type = "number";
 
-    // Región
     const labelRegion = document.createElement("label");
     labelRegion.innerHTML = "Región";
     const inputRegion = document.createElement("select");
@@ -265,7 +253,6 @@ function formAgregarPokemon(indice) {
         inputRegion.appendChild(option);
     });
 
-    // Botón Agregar
     const botonAgregar = document.createElement("button");
     botonAgregar.innerHTML = "Agregar";
     botonAgregar.type = "submit";
@@ -288,8 +275,6 @@ function formAgregarPokemon(indice) {
         );
     });
     
-
-    // Botón Volver
     const botonVolver = document.createElement("button");
     botonVolver.innerHTML = "Volver";
     botonVolver.type = "button";
@@ -298,7 +283,6 @@ function formAgregarPokemon(indice) {
         TablaPokemon();
     });
 
-    // Agregar al formulario
     form.appendChild(labelNombre);
     form.appendChild(inputNombre);
     form.appendChild(labelTipo);
@@ -318,12 +302,37 @@ function formAgregarPokemon(indice) {
 
     container.appendChild(h1);
     container.appendChild(form);
-
 }
 
-
-
 function formEditarPokemon(indice) {
+    const movimientosPokemon = [
+        "Rayo",
+        "Terremoto",
+        "Hidro Bomba",
+        "Garra Dragón",
+        "Rayo Hielo",
+        "Lanzallamas",
+        "Bola Sombra",
+        "Psíquico",
+        "Hiperrayo",
+        "Rayo Solar",
+        "Látigo Cepa",
+        "Doble Patada",
+        "Acua Jet",
+        "Testarazo",
+        "Desarme",
+        "Viento Afín",
+        "Protección",
+        "Escaldar",
+        "Avalancha",
+        "Tóxico",
+        "Corte",
+        "Aqua cola",
+        "Hierba lazo",
+        "Hoja afilada",
+        "Concha filo",
+        "Surf"
+    ];
 
     const h1 = document.createElement("h1");
     h1.innerHTML = "Editar Pokémon";
@@ -331,45 +340,71 @@ function formEditarPokemon(indice) {
     const form = document.createElement("form");
     const poke = pokemon[indice];
 
-    // Nombre
+    if (!poke.movimientos) {
+        poke.movimientos = [];
+    }
+
     const labelNombre = document.createElement("label");
     labelNombre.innerHTML = "Nombre";
     const inputNombre = document.createElement("input");
     inputNombre.type = "text";
     inputNombre.value = poke.nombre;
 
-    // Tipo
     const labelTipo = document.createElement("label");
     labelTipo.innerHTML = "Tipo";
     const inputTipo = document.createElement("input");
     inputTipo.type = "text";
     inputTipo.value = poke.tipo;
 
-    // Entrenador (Imagen)
     const labelEntrenador = document.createElement("label");
     labelEntrenador.innerHTML = "Imagen Entrenador";
     const inputEntrenador = document.createElement("input");
     inputEntrenador.type = "file";
 
-    // Pokémon (Imagen)
     const labelPokemon = document.createElement("label");
     labelPokemon.innerHTML = "Imagen Pokémon";
     const inputPokemon = document.createElement("input");
     inputPokemon.type = "file";
 
-    // Nivel
     const labelNivel = document.createElement("label");
     labelNivel.innerHTML = "Nivel";
     const inputNivel = document.createElement("input");
     inputNivel.type = "number";
     inputNivel.value = poke.nivel;
 
-    // Botón Editar
+    const labelMovimientos = document.createElement("label");
+    labelMovimientos.innerHTML = "Movimientos";
+    const divMovimientos = document.createElement("div");
+    movimientosPokemon.forEach(movimiento => {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = movimiento;
+        checkbox.checked = poke.movimientos.includes(movimiento);
+        const label = document.createElement("label");
+        label.innerHTML = movimiento;
+        divMovimientos.appendChild(checkbox);
+        divMovimientos.appendChild(label);
+        divMovimientos.appendChild(document.createElement("br"));
+    });
+
+    const labelRegion = document.createElement("label");
+    labelRegion.innerHTML = "Región";
+    const selectRegion = document.createElement("select");
+    const regiones = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar"];
+    regiones.forEach(region => {
+        const option = document.createElement("option");
+        option.value = region;
+        option.innerHTML = region;
+        if (region === poke.region) {
+            option.selected = true;
+        }
+        selectRegion.appendChild(option);
+    });
+
     const botonEditar = document.createElement("button");
     botonEditar.innerHTML = "Guardar Cambios";
     botonEditar.type = "submit";
 
-    // Botón Volver
     const botonVolver = document.createElement("button");
     botonVolver.innerHTML = "Volver";
     botonVolver.type = "button";
@@ -380,17 +415,19 @@ function formEditarPokemon(indice) {
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
+        const movimientosSeleccionados = Array.from(divMovimientos.querySelectorAll("input[type=checkbox]:checked")).map(checkbox => checkbox.value);
         editarPokemon(
             indice, 
             inputNombre.value, 
             inputTipo.value, 
             inputEntrenador.files[0], 
             inputPokemon.files[0], 
-            inputNivel.value
+            movimientosSeleccionados, 
+            inputNivel.value, 
+            selectRegion.value
         );
     });
 
-    // Agregar elementos al formulario
     form.appendChild(labelNombre);
     form.appendChild(inputNombre);
     form.appendChild(labelTipo);
@@ -401,6 +438,10 @@ function formEditarPokemon(indice) {
     form.appendChild(inputPokemon);
     form.appendChild(labelNivel);
     form.appendChild(inputNivel);
+    form.appendChild(labelMovimientos);
+    form.appendChild(divMovimientos);
+    form.appendChild(labelRegion);
+    form.appendChild(selectRegion);
     form.appendChild(botonEditar);
     form.appendChild(botonVolver);
 
@@ -408,13 +449,14 @@ function formEditarPokemon(indice) {
     container.appendChild(form);
 }
 
-
-function editarPokemon(indice, nombre, tipo, entrenadorFile, pokemonFile, nivel) {
+function editarPokemon(indice, nombre, tipo, entrenadorFile, pokemonFile, movimientos, nivel, region) {
     const poke = pokemon[indice];
 
     poke.nombre = nombre;
     poke.tipo = tipo;
     poke.nivel = parseInt(nivel);
+    poke.movimientos = movimientos;
+    poke.region = region;
 
     if (entrenadorFile) {
         poke.entrenador = URL.createObjectURL(entrenadorFile);
@@ -427,16 +469,6 @@ function editarPokemon(indice, nombre, tipo, entrenadorFile, pokemonFile, nivel)
     TablaPokemon();
 }
 
-
-
-function eliminarPokemon(indice) {
-    pokemon.splice(indice, 1); 
-    container.innerHTML = ""; 
-    TablaPokemon(); 
-}
-
-
-
 function agregarPokemon(nombre, tipo, entrenador, pokemonImg, movimientos, nivel, region) {
     const nuevoPokemon = {
         id: pokemon.length + 1,
@@ -444,7 +476,7 @@ function agregarPokemon(nombre, tipo, entrenador, pokemonImg, movimientos, nivel
         tipo: tipo,
         entrenador: entrenador ? URL.createObjectURL(entrenador) : "img/default.png",
         pokemon: pokemonImg ? URL.createObjectURL(pokemonImg) : "img/default.png",
-        movimiento: movimientos.join(", "),
+        movimientos: movimientos,
         nivel: parseInt(nivel),
         region: region
     };
@@ -454,7 +486,6 @@ function agregarPokemon(nombre, tipo, entrenador, pokemonImg, movimientos, nivel
     TablaPokemon();
 }
 
-
 function pokemonVacio() {
     if (pokemon.length === 0) {
         container.innerHTML = "";
@@ -462,16 +493,13 @@ function pokemonVacio() {
         h1.innerHTML = "No hay Pokémon registrados, recargue la página";
         container.appendChild(h1);
     }
-
 }
 
 function eliminarPokemonConConfirmacion(indice) {
     container.innerHTML = "";
 
-
     const p = document.createElement("p");
     p.innerHTML = `¿Seguro que quieres eliminar a ${pokemon[indice].nombre}?`;
-
 
     const botonSi = document.createElement("button");
     botonSi.innerHTML = "Sí";
@@ -483,7 +511,6 @@ function eliminarPokemonConConfirmacion(indice) {
         TablaPokemon(); 
     });
 
-    // Botón "No"
     const botonNo = document.createElement("button");
     botonNo.innerHTML = "No";
     botonNo.type = "button";
@@ -493,9 +520,13 @@ function eliminarPokemonConConfirmacion(indice) {
         TablaPokemon(); 
     });
 
-    // Añadir elementos al contenedor
     container.appendChild(p);
     container.appendChild(botonSi);
     container.appendChild(botonNo);
 }
 
+function eliminarPokemon(indice) {
+    pokemon.splice(indice, 1); 
+    container.innerHTML = ""; 
+    TablaPokemon(); 
+}
