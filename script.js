@@ -259,20 +259,22 @@ function formAgregarPokemon(indice) {
 
     form.addEventListener("submit", (e) => {
         e.preventDefault(); 
-        const movimientosSeleccionados = [];
-        contenedorMovimientos.querySelectorAll("input[type='checkbox']:checked").forEach(checkbox => {
-            movimientosSeleccionados.push(checkbox.value);
-        });
-    
-        agregarPokemon(
-            inputNombre.value, 
-            inputTipo.value, 
-            inputEntrenador.files[0], 
-            inputPokemon.files[0], 
-            movimientosSeleccionados,
-            inputNivel.value, 
-            inputRegion.value
-        );
+        if (validarFormulario(inputNombre, inputTipo, inputNivel)) {
+            const movimientosSeleccionados = [];
+            contenedorMovimientos.querySelectorAll("input[type='checkbox']:checked").forEach(checkbox => {
+                movimientosSeleccionados.push(checkbox.value);
+            });
+        
+            agregarPokemon(
+                inputNombre.value, 
+                inputTipo.value, 
+                inputEntrenador.files[0], 
+                inputPokemon.files[0], 
+                movimientosSeleccionados,
+                inputNivel.value, 
+                inputRegion.value
+            );
+        }
     });
     
     const botonVolver = document.createElement("button");
@@ -303,6 +305,7 @@ function formAgregarPokemon(indice) {
     container.appendChild(h1);
     container.appendChild(form);
 }
+
 
 function formEditarPokemon(indice) {
     const movimientosPokemon = [
@@ -415,17 +418,19 @@ function formEditarPokemon(indice) {
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-        const movimientosSeleccionados = Array.from(divMovimientos.querySelectorAll("input[type=checkbox]:checked")).map(checkbox => checkbox.value);
-        editarPokemon(
-            indice, 
-            inputNombre.value, 
-            inputTipo.value, 
-            inputEntrenador.files[0], 
-            inputPokemon.files[0], 
-            movimientosSeleccionados, 
-            inputNivel.value, 
-            selectRegion.value
-        );
+        if (validarFormulario(inputNombre, inputTipo, inputNivel)) {
+            const movimientosSeleccionados = Array.from(divMovimientos.querySelectorAll("input[type=checkbox]:checked")).map(checkbox => checkbox.value);
+            editarPokemon(
+                indice, 
+                inputNombre.value, 
+                inputTipo.value, 
+                inputEntrenador.files[0], 
+                inputPokemon.files[0], 
+                movimientosSeleccionados, 
+                inputNivel.value, 
+                selectRegion.value
+            );
+        }
     });
 
     form.appendChild(labelNombre);
@@ -447,6 +452,19 @@ function formEditarPokemon(indice) {
 
     container.appendChild(h1);
     container.appendChild(form);
+}
+
+function validarFormulario(...inputs) {
+    let valid = true;
+    inputs.forEach(input => {
+        if (!input.value) {
+            input.style.borderColor = "red";
+            valid = false;
+        } else {
+            input.style.borderColor = "";
+        }
+    });
+    return valid;
 }
 
 function editarPokemon(indice, nombre, tipo, entrenadorFile, pokemonFile, movimientos, nivel, region) {
