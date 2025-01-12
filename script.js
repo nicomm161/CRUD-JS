@@ -62,14 +62,17 @@ const pokemon = [
     }
 ];
 
+// Obtener referencias a los elementos del DOM
 const tabla = document.getElementById("tabla");
 const container = document.getElementById("container");
 
+// Ejecutar funciones cuando el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", () => {
     TablaPokemon();
     pokemonVacio();
 });
 
+// Función para generar y mostrar la tabla de Pokémon
 function TablaPokemon() {
     container.innerHTML = ""; // Limpiar el contenido del contenedor
 
@@ -81,12 +84,14 @@ function TablaPokemon() {
     const trhead = document.createElement("tr");
     const tbody = document.createElement("tbody");
 
+    // Crear encabezados de la tabla basados en las claves del primer objeto Pokémon
     for (const key in pokemon[0]) {
         const th = document.createElement("th");
         th.innerHTML = key;
         trhead.appendChild(th);
     }
 
+    // Agregar encabezados adicionales para las acciones
     const thEliminar = document.createElement("th");
     thEliminar.innerHTML = "Eliminar";
     trhead.appendChild(thEliminar);
@@ -102,9 +107,11 @@ function TablaPokemon() {
     thead.appendChild(trhead);
     tabla.appendChild(thead);
 
+    // Crear filas de la tabla para cada Pokémon
     pokemon.forEach((poke, index) => {
         const tr = document.createElement("tr");
 
+        // Crear celdas para cada propiedad del Pokémon
         for (const key in poke) {
             const td = document.createElement("td");
             if (key === "pokemon" || key === "entrenador") {
@@ -117,6 +124,7 @@ function TablaPokemon() {
             tr.appendChild(td);
         }
 
+        // Crear celda y botón para eliminar el Pokémon
         const tdEliminar = document.createElement("td");
         const botonEliminar = document.createElement("button");
         botonEliminar.innerHTML = "Eliminar";
@@ -127,6 +135,7 @@ function TablaPokemon() {
         tdEliminar.appendChild(botonEliminar);
         tr.appendChild(tdEliminar);
 
+        // Crear celda y botón para actualizar el Pokémon
         const tdActualizar = document.createElement("td");
         const botonActualizar = document.createElement("button");
         botonActualizar.innerHTML = "Actualizar";
@@ -138,6 +147,7 @@ function TablaPokemon() {
         tdActualizar.appendChild(botonActualizar);
         tr.appendChild(tdActualizar);
 
+        // Crear celda y botón para agregar un nuevo Pokémon
         const tdAgregar = document.createElement("td");
         const botonAgregar = document.createElement("button");
         botonAgregar.innerHTML = "Agregar";
@@ -158,6 +168,7 @@ function TablaPokemon() {
     pokemonVacio();
 }
 
+// Función para mostrar un formulario para agregar un nuevo Pokémon
 function formAgregarPokemon(indice) {
     container.innerHTML = "";
 
@@ -166,6 +177,7 @@ function formAgregarPokemon(indice) {
 
     const form = document.createElement("form");
 
+    // Crear y configurar elementos del formulario
     const labelNombre = document.createElement("label");
     labelNombre.innerHTML = "Nombre";
     const inputNombre = document.createElement("input");
@@ -186,6 +198,7 @@ function formAgregarPokemon(indice) {
     const inputPokemon = document.createElement("input");
     inputPokemon.type = "file";
 
+    // Lista de movimientos disponibles
     const movimientosPokemon = [
         "Rayo",
         "Terremoto",
@@ -219,6 +232,7 @@ function formAgregarPokemon(indice) {
     labelMovimiento.innerHTML = "Movimiento";
     const contenedorMovimientos = document.createElement("div");
 
+    // Crear checkboxes para seleccionar movimientos
     movimientosPokemon.forEach(movimiento => {
         const checkboxContainer = document.createElement("div");
         const inputMovimiento = document.createElement("input");
@@ -234,7 +248,7 @@ function formAgregarPokemon(indice) {
         checkboxContainer.appendChild(labelCheckbox);
     
         contenedorMovimientos.appendChild(checkboxContainer);
-    })
+    });
 
     const labelNivel = document.createElement("label");
     labelNivel.innerHTML = "Nivel";
@@ -245,6 +259,7 @@ function formAgregarPokemon(indice) {
     labelRegion.innerHTML = "Región";
     const inputRegion = document.createElement("select");
 
+    // Lista de regiones disponibles
     const regionesPokemon = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Teselia", "Kalos", "Alola", "Galar"];
     regionesPokemon.forEach(region => {
         const option = document.createElement("option");
@@ -257,6 +272,7 @@ function formAgregarPokemon(indice) {
     botonAgregar.innerHTML = "Agregar";
     botonAgregar.type = "submit";
 
+    // Manejar el envío del formulario
     form.addEventListener("submit", (e) => {
         e.preventDefault(); 
         if (validarFormulario(inputNombre, inputTipo, inputNivel)) {
@@ -285,6 +301,7 @@ function formAgregarPokemon(indice) {
         TablaPokemon();
     });
 
+    // Agregar elementos al formulario
     form.appendChild(labelNombre);
     form.appendChild(inputNombre);
     form.appendChild(labelTipo);
@@ -306,7 +323,7 @@ function formAgregarPokemon(indice) {
     container.appendChild(form);
 }
 
-
+// Función para mostrar un formulario para editar un Pokémon existente
 function formEditarPokemon(indice) {
     const movimientosPokemon = [
         "Rayo",
@@ -347,6 +364,7 @@ function formEditarPokemon(indice) {
         poke.movimientos = [];
     }
 
+    // Crear y configurar elementos del formulario
     const labelNombre = document.createElement("label");
     labelNombre.innerHTML = "Nombre";
     const inputNombre = document.createElement("input");
@@ -416,6 +434,7 @@ function formEditarPokemon(indice) {
         TablaPokemon();
     });
 
+    // Manejar el envío del formulario
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         if (validarFormulario(inputNombre, inputTipo, inputNivel)) {
@@ -433,6 +452,7 @@ function formEditarPokemon(indice) {
         }
     });
 
+    // Agregar elementos al formulario
     form.appendChild(labelNombre);
     form.appendChild(inputNombre);
     form.appendChild(labelTipo);
@@ -454,6 +474,7 @@ function formEditarPokemon(indice) {
     container.appendChild(form);
 }
 
+// Función para validar que los campos del formulario no estén vacíos
 function validarFormulario(...inputs) {
     let valid = true;
     inputs.forEach(input => {
@@ -467,6 +488,7 @@ function validarFormulario(...inputs) {
     return valid;
 }
 
+// Función para actualizar un Pokémon existente con los nuevos datos proporcionados
 function editarPokemon(indice, nombre, tipo, entrenadorFile, pokemonFile, movimientos, nivel, region) {
     const poke = pokemon[indice];
 
@@ -487,6 +509,7 @@ function editarPokemon(indice, nombre, tipo, entrenadorFile, pokemonFile, movimi
     TablaPokemon();
 }
 
+// Función para agregar un nuevo Pokémon al array
 function agregarPokemon(nombre, tipo, entrenador, pokemonImg, movimientos, nivel, region) {
     const nuevoPokemon = {
         id: pokemon.length + 1,
@@ -504,6 +527,7 @@ function agregarPokemon(nombre, tipo, entrenador, pokemonImg, movimientos, nivel
     TablaPokemon();
 }
 
+// Función para verificar si el array de Pokémon está vacío y mostrar un mensaje si es así
 function pokemonVacio() {
     if (pokemon.length === 0) {
         container.innerHTML = "";
@@ -513,6 +537,7 @@ function pokemonVacio() {
     }
 }
 
+// Función para mostrar una confirmación antes de eliminar un Pokémon
 function eliminarPokemonConConfirmacion(indice) {
     container.innerHTML = "";
 
@@ -543,6 +568,7 @@ function eliminarPokemonConConfirmacion(indice) {
     container.appendChild(botonNo);
 }
 
+// Función para eliminar un Pokémon del array
 function eliminarPokemon(indice) {
     pokemon.splice(indice, 1); 
     container.innerHTML = ""; 
